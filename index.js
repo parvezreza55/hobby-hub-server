@@ -26,11 +26,14 @@ async function run() {
     const hobbyCollection = client.db("hobbyBd").collection("hobbies");
 
     // hobbies api
+    app.get("/hobbies", async (req, res) => {
+      const result = await hobbyCollection.find().toArray();
+      res.send(result);
+    });
     app.post("/hobbies", async (req, res) => {
       const hobby = req.body;
       const result = await hobbyCollection.insertOne(hobby);
       res.send(result);
-      console.log(hobby);
     });
 
     // user api
