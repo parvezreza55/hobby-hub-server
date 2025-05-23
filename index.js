@@ -41,6 +41,22 @@ async function run() {
       const result = await hobbyCollection.insertOne(hobby);
       res.send(result);
     });
+    app.put("/hobbies/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateHobby = req.body;
+      const updatedDoc = {
+        $set: updateHobby,
+      };
+      const result = await hobbyCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+      console.log(updateHobby);
+    });
     app.delete("/hobbies/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
