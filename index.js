@@ -23,7 +23,17 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const usersCollection = client.db("hobbyUser").collection("users");
+    const hobbyCollection = client.db("hobbyBd").collection("hobbies");
 
+    // hobbies api
+    app.post("/hobbies", async (req, res) => {
+      const hobby = req.body;
+      const result = await hobbyCollection.insertOne(hobby);
+      res.send(result);
+      console.log(hobby);
+    });
+
+    // user api
     app.post("/user", async (req, res) => {
       const users = req.body;
       const result = await usersCollection.insertOne(users);
