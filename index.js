@@ -64,6 +64,10 @@ async function run() {
     });
 
     // user api
+    app.get("/user", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
     app.post("/user", async (req, res) => {
       const users = req.body;
       const result = await usersCollection.insertOne(users);
