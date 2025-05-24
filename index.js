@@ -55,7 +55,6 @@ async function run() {
         options
       );
       res.send(result);
-      console.log(updateHobby);
     });
     app.delete("/hobbies/:id", async (req, res) => {
       const id = req.params.id;
