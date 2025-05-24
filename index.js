@@ -78,8 +78,8 @@ async function run() {
   }
 }
 run().catch(console.dir);
-app.get("/user", async (req, res) => {
-  res.send("user coming");
+app.get("/", async (req, res) => {
+  res.send("Server is running");
 });
 app.listen(port, () => {
   console.log(`app is running in the port ${port}`);
