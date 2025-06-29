@@ -27,7 +27,22 @@ async function run() {
 
     // hobbies api
     app.get("/hobbies", async (req, res) => {
-      const result = await hobbyCollection.find().toArray();
+      const { sort, category } = req.query;
+      let query = {};
+      let sortOption = {};
+
+      if (category) {
+        query.category = { $regex: category, $options: "i" };
+      }
+      if (sort === "asc") {
+        sortOption.name = 1;
+      } else if (sort === "desc") {
+        sortOption.name = -1;
+      }
+      const result = await hobbyCollection
+        .find(query)
+        .sort(sortOption)
+        .toArray();
       res.send(result);
     });
     app.get("/hobbies/:id", async (req, res) => {
